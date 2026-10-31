@@ -1,4 +1,4 @@
-# Agent Rules chimeras: example code
+# Code Chimeras: example code for the Agent Rules rulebook
 
 These are the small example projects behind the chimera pages of the [Agent Rules rulebook](https://beta.llmgraph.in/agent-readable/?ref=gh-chimeras). Each folder has the code before and after the fix, and the tests that show the break.
 
