@@ -15,7 +15,15 @@ These are the small example projects behind the chimera pages of the [Agent Rule
 | CH-09 | Why does my renamed keyword argument fail at runtime? | Python typing | [AR-11](https://beta.llmgraph.in/agent-readable/ar-11/) | [page](https://beta.llmgraph.in/agent-readable/ch-09/?ref=gh-chimeras) | [CH-09-kwargs-passthrough](CH-09-kwargs-passthrough/) |
 | CH-11 | Why does my Next.js widget fail to load after a rename? | Next.js, TypeScript | [AR-37](https://beta.llmgraph.in/agent-readable/ar-37/) | [page](https://beta.llmgraph.in/agent-readable/ch-11/?ref=gh-chimeras) | [CH-11-nextjs-dynamic-widgets](CH-11-nextjs-dynamic-widgets/) |
 
-## Run the tests
+## See it break in one command
+
+```
+python reproduce.py CH-06
+```
+
+It runs the chimera's tests on `before/` (the edit is applied and one call is left wrong; the run shows the break, as failing tests or as the test marked xfail, expectedFailure or todo), then on `after/` (the fix; every test passes), and tells you what to look for. `python reproduce.py --list` lists the chimeras. Python 3.9 or later, standard library only. For the Node chimeras it runs `npm install` inside each folder; for the Python ones it tells you which packages to install first.
+
+## Run the tests by hand
 
 Run these inside the `before/` or `after/` directory of a folder. Each folder README has the same commands.
 
