@@ -1,0 +1,20 @@
+diff --git a/pre/src/components/withTracking.tsx b/before/src/components/withTracking.tsx
+index db18b93..b7e20c5 100644
+--- a/pre/src/components/withTracking.tsx
++++ b/before/src/components/withTracking.tsx
+@@ -4,12 +4,13 @@ import { track, type TrackPayload } from "../analytics/track";
+ export type TrackFn = (payload: TrackPayload) => void;
+ 
+ export function withTracking<P extends object>(
+-  Component: ComponentType<P & { onTrack?: TrackFn }>,
++  Component: ComponentType<P & { onEvent?: TrackFn }>,
+ ) {
+   function Tracked(props: P) {
+     const name = Component.displayName ?? Component.name;
+     const onTrack: TrackFn = (payload) => track({ component: name, ...payload });
+-    return <Component {...(props as P)} onTrack={onTrack} />;
++    // Edit applied: the injected prop was renamed from onTrack to onEvent (lines 7 and 13).
++    return <Component {...(props as P)} onEvent={onTrack} />;
+   }
+   Tracked.displayName = `withTracking(${Component.displayName ?? Component.name})`;
+   return Tracked;

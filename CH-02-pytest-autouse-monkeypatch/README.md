@@ -14,6 +14,8 @@ Read the full walkthrough: https://beta.llmgraph.in/agent-readable/ch-02/?ref=gh
 
 Python with pytest installed. Run the commands in `before/` to see the break, then in `after/` to see the fix.
 
+`pre/` is the project before the edit; `edit.patch` is the edit (pre/ to before/).
+
 ```
 cd before   # or: cd after
 pytest

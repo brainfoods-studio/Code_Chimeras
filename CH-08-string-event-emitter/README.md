@@ -13,6 +13,8 @@ Read the full walkthrough: https://beta.llmgraph.in/agent-readable/ch-08/?ref=gh
 
 Node 24 with npm. Run the commands in `before/` to see the break, then in `after/` to see the fix.
 
+`pre/` is the project before the edit; `edit.patch` is the edit (pre/ to before/).
+
 ```
 cd before   # or: cd after
 npm install

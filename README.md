@@ -23,6 +23,8 @@ python reproduce.py CH-06
 
 It runs the chimera's tests on `before/` (the edit is applied and one call is left wrong; the run shows the break, as failing tests or as the test marked xfail, expectedFailure or todo), then on `after/` (the fix; every test passes), and tells you what to look for. `python reproduce.py --list` lists the chimeras. Python 3.9 or later, standard library only. For the Node chimeras it runs `npm install` inside each folder; for the Python ones it tells you which packages to install first.
 
+Each folder also has `pre/`, the project before the edit, and `edit.patch`, the edit itself, so you can replay it or ask a tool about the change.
+
 ## Run the tests by hand
 
 Run these inside the `before/` or `after/` directory of a folder. Each folder README has the same commands.

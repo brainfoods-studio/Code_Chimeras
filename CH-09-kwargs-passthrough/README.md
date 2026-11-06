@@ -12,6 +12,8 @@ Read the full walkthrough: https://beta.llmgraph.in/agent-readable/ch-09/?ref=gh
 
 Python 3.12 with pytest. Run the commands in `before/` to see the break, then in `after/` to see the fix. The page also reports mypy and pyright on both folders.
 
+`pre/` is the project before the edit; `edit.patch` is the edit (pre/ to before/).
+
 ```
 cd before   # or: cd after
 pytest

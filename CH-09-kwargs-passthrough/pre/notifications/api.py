@@ -1,0 +1,9 @@
+from notifications.service import notify
+
+
+def welcome_user(user: str) -> str:
+    return notify(user, template="welcome")
+
+
+def send_receipt(user: str, locale: str) -> str:
+    return notify(user, template="receipt", locale=locale)

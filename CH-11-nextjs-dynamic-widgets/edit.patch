@@ -1,0 +1,86 @@
+diff --git a/pre/lib/metrics.ts b/before/lib/metrics.ts
+index 9bb6c6e..32de5d7 100644
+--- a/pre/lib/metrics.ts
++++ b/before/lib/metrics.ts
+@@ -2,8 +2,8 @@ export function formatCents(cents: number): string {
+   return (cents / 100).toFixed(2);
+ }
+ 
+-export function churnRate(startOfMonth: number, lost: number): number {
+-  return Math.round((lost / startOfMonth) * 100) / 100;
++export function retentionRate(startOfMonth: number, lost: number): number {
++  return Math.round(((startOfMonth - lost) / startOfMonth) * 100) / 100;
+ }
+ 
+ export function signupsPerDay(total: number, days: number): number {
+diff --git a/pre/tests/metrics.test.ts b/before/tests/metrics.test.ts
+index ff38786..c5c3987 100644
+--- a/pre/tests/metrics.test.ts
++++ b/before/tests/metrics.test.ts
+@@ -1,14 +1,14 @@
+ import test from "node:test";
+ import assert from "node:assert";
+ 
+-import { formatCents, churnRate, signupsPerDay } from "../lib/metrics.ts";
++import { formatCents, retentionRate, signupsPerDay } from "../lib/metrics.ts";
+ 
+ test("formatCents shows two decimals", () => {
+   assert.strictEqual(formatCents(1234567), "12345.67");
+ });
+ 
+-test("churnRate is the share of customers lost", () => {
+-  assert.strictEqual(churnRate(200, 10), 0.05);
++test("retentionRate is the share of customers kept", () => {
++  assert.strictEqual(retentionRate(200, 10), 0.95);
+ });
+ 
+ test("signupsPerDay rounds to a whole number", () => {
+diff --git a/pre/tests/widgets.test.ts b/before/tests/widgets.test.ts
+index 9980d49..caf7766 100644
+--- a/pre/tests/widgets.test.ts
++++ b/before/tests/widgets.test.ts
+@@ -7,7 +7,11 @@ import { DASHBOARD_WIDGETS } from "../app/dashboard/widgets.config.ts";
+ 
+ const widgetsDir = join(import.meta.dirname, "..", "widgets");
+ 
+-test("every configured widget has a file in widgets/", () => {
++// Written as it would be written; it fails as expected (todo). widgets/Churn.tsx was
++// renamed to widgets/Retention.tsx, and the component and tests/metrics.test.ts were
++// updated with it. widgets.config.ts still lists "Churn", and WidgetSlot.tsx builds the
++// import path from that string, so the slot has no file to load.
++test("every configured widget has a file in widgets/", { todo: "widgets.config.ts lists Churn; widgets/Churn.tsx was renamed to Retention.tsx" }, () => {
+   for (const name of DASHBOARD_WIDGETS) {
+     assert.ok(existsSync(join(widgetsDir, `${name}.tsx`)), `widgets/${name}.tsx does not exist`);
+   }
+diff --git a/pre/widgets/Churn.tsx b/pre/widgets/Churn.tsx
+deleted file mode 100644
+index aea1aa9..0000000
+--- a/pre/widgets/Churn.tsx
++++ /dev/null
+@@ -1,10 +0,0 @@
+-import { churnRate } from "../lib/metrics";
+-
+-export default function Churn() {
+-  return (
+-    <section>
+-      <h2>Churn</h2>
+-      <p>{churnRate(200, 10)}</p>
+-    </section>
+-  );
+-}
+diff --git a/before/widgets/Retention.tsx b/before/widgets/Retention.tsx
+new file mode 100644
+index 0000000..807557f
+--- /dev/null
++++ b/before/widgets/Retention.tsx
+@@ -0,0 +1,10 @@
++import { retentionRate } from "../lib/metrics";
++
++export default function Retention() {
++  return (
++    <section>
++      <h2>Retention</h2>
++      <p>{retentionRate(200, 10)}</p>
++    </section>
++  );
++}
